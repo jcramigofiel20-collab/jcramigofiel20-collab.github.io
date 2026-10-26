@@ -1,0 +1,150 @@
+import type { SoftwareSystem } from './types.ts'
+
+/**
+ * CATÁLOGO DE SISTEMAS
+ *
+ * Para agregar un sistema nuevo copie el bloque de FARMA PRO, cambie sus datos y póngale un «slug» propio
+ * (es la dirección: /sistemas/<slug>). Mientras no tenga instalador publicado, use status 'en-desarrollo' o
+ * 'proximamente' y no le ponga «download»: la página mostrará «Solicitar información» en lugar de «Descargar».
+ *
+ * Las capturas van en public/img/<slug>/ (formato .webp).
+ */
+
+const shot = (file: string, title: string, caption: string) => ({
+  src: `img/farma-pro/${file}.webp`,
+  thumb: `img/farma-pro/${file}-thumb.webp`,
+  title,
+  caption,
+})
+
+export const systems: SoftwareSystem[] = [
+  {
+    slug: 'farmacia',
+    name: 'FARMA PRO',
+    fullName: 'FARMA PRO — Sistema de gestión para farmacias',
+    tagline: 'Una solución para organizar las operaciones de tu farmacia, controlar inventarios y agilizar los procesos de venta.',
+    summary:
+      'Punto de venta con lector de códigos, inventario por lotes y vencimientos, compras, caja, reportes y comprobantes electrónicos para farmacias y boticas del Perú.',
+    description: [
+      'FARMA PRO es un sistema de escritorio para Windows pensado para el trabajo diario de una farmacia o botica: vender rápido en el mostrador, saber exactamente qué hay en cada lote y cuándo vence, cuadrar la caja al final del turno y tener los reportes a un clic.',
+      'Funciona en una sola computadora o en varias conectadas por la red local: una PC hace de servidor y las demás se conectan como cajas. Para vender no necesita internet.',
+      'Incluye una demostración con datos ficticios para probarlo todo con libertad antes de empezar, y se actualiza con un clic cuando sale una versión nueva.',
+    ],
+    category: 'salud',
+    businessTypes: ['farmacia', 'botica', 'salud', 'droguería'],
+    status: 'disponible',
+    featured: true,
+    icon: 'pill',
+    accent: 'blue',
+    highlights: ['Venta con lector de códigos y atajos', 'Lotes y vencimientos con alertas', 'Caja con arqueo y reportes PDF/Excel'],
+    heroImage: shot('02_panel', 'Panel principal', 'Indicadores del día, inventario, gráficos y alertas.'),
+    screenshotsAreReal: true,
+    screenshotsNote: 'Capturas reales del programa. Usan la base de demostración: los productos, clientes y ventas son ficticios.',
+    gallery: [
+      shot('02_panel', 'Panel principal', 'Ventas del día y del mes, compras, margen e inventario de un vistazo.'),
+      shot('03_punto_de_venta', 'Punto de venta', 'Lector de códigos, formas de pago y cobro con F12.'),
+      shot('07_inventario', 'Inventario y lotes', 'Stock vendible, retenido y vencido por producto y por lote.'),
+      shot('11_reportes', 'Reportes', 'Ventas, finanzas, compras, inventario y más; exportación a PDF y Excel.'),
+      shot('09_caja', 'Caja', 'Apertura, ingresos y egresos con motivo, arqueo y cierre.'),
+      shot('05_productos', 'Productos', 'Catálogo con presentaciones, precios, fotos e importación desde Excel.'),
+      shot('08_compras', 'Compras', 'Ingreso con lote, vencimiento y costo; compras al crédito.'),
+      shot('04_ventas', 'Historial de ventas', 'Reimpresión, devoluciones y anulaciones con motivo.'),
+      shot('12_promociones', 'Promociones', 'Descuentos, 3×2 y paquetes que se aplican solos al vender.'),
+      shot('13_cuentas', 'Cuentas y gastos', 'Crédito a clientes, pagos a proveedores y gastos.'),
+      shot('15_comprobantes', 'Comprobantes electrónicos', 'Boletas, facturas y notas a través de tu proveedor o SUNAT.'),
+      shot('16_usuarios', 'Usuarios y seguridad', 'Roles, permisos, sesiones e intentos de acceso.'),
+      shot('17_auditoria', 'Auditoría', 'Registro firmado de las acciones importantes.'),
+      shot('18_copias', 'Copias de seguridad', 'Copia diaria, segunda ubicación y prueba de recuperación.'),
+      shot('19_configuracion', 'Configuración', 'Datos del negocio, impresión, seguridad e impuestos.'),
+      shot('23_movil', 'Consulta desde el celular', 'Ventas, caja e inventario desde el celular (solo consulta).'),
+    ],
+    problems: [
+      { title: 'Productos que vencen sin que nadie lo note', text: 'Cada lote tiene su fecha. El panel avisa lo que está por vencer y el sistema nunca vende un lote vencido o bloqueado.' },
+      { title: 'Ventas lentas en el mostrador', text: 'Escanea el código de barras, ajusta la cantidad con el teclado y cobra con F12. El ticket sale al instante.' },
+      { title: 'Cajas que no cuadran', text: 'Cada venta y movimiento se suma solo. Al cerrar, el arqueo compara lo contado con lo esperado y marca la diferencia.' },
+      { title: 'No saber cuánto stock hay', text: 'Existencias por producto y lote, stock mínimo, kardex e inventario físico para conciliar.' },
+      { title: 'Quién hizo qué', text: 'Un usuario por persona, roles con permisos y una auditoría firmada que detecta cambios hechos por fuera del programa.' },
+      { title: 'Miedo a perder la información', text: 'Copia de seguridad diaria automática, segunda copia en USB o disco externo y prueba de recuperación.' },
+    ],
+    features: [
+      { icon: 'scan', title: 'Punto de venta ágil', text: 'Lector de códigos de barras, atajos de teclado, efectivo, tarjeta, Yape, Plin, transferencia o crédito, y pagos combinados.' },
+      { icon: 'calendar-x', title: 'Lotes y vencimientos', text: 'Vende primero el lote que vence antes. Alertas de stock bajo, agotados, próximos a vencer y vencidos.' },
+      { icon: 'truck', title: 'Compras y proveedores', text: 'Ingreso con lote, vencimiento y costo, bonificaciones, compras en dólares y cuentas por pagar.' },
+      { icon: 'wallet', title: 'Caja con arqueo', text: 'Apertura por turno, ingresos y egresos con motivo, arqueo por billetes y monedas, cierre en PDF.' },
+      { icon: 'chart', title: 'Reportes', text: 'Ventas por día, cajero, producto o medio de pago; márgenes, inventario, kardex y más, en PDF o Excel.' },
+      { icon: 'tag', title: 'Promociones automáticas', text: 'Porcentaje, monto fijo, lleve N pague M y paquetes. Se elige sola la que más ahorra al cliente.' },
+      { icon: 'hand-coins', title: 'Créditos y gastos', text: 'Límite y plazo de crédito por cliente, cobros parciales, pagos a proveedores y gastos con comprobante.' },
+      { icon: 'receipt', title: 'Comprobantes electrónicos', text: 'Boletas, facturas y notas a través de tu PSE u OSE o directo con SUNAT. Requiere contratar un proveedor.' },
+      { icon: 'gift', title: 'Sorteos verificables', text: 'Campañas con reglas, participaciones con consentimiento del cliente y acta del sorteo en PDF.' },
+      { icon: 'users', title: 'Usuarios y permisos', text: 'Nueve roles incluidos (cajero, químico farmacéutico, almacenero…) y roles propios.' },
+      { icon: 'shield', title: 'Auditoría inalterable', text: 'Usuario, PC, hora y valores antes y después de cada cambio importante, con firma verificable.' },
+      { icon: 'database', title: 'Copias de seguridad', text: 'Copia diaria automática, segunda ubicación, prueba de recuperación y restauración guiada.' },
+      { icon: 'smartphone', title: 'Consulta desde el celular', text: 'El dueño ve ventas, caja e inventario desde su celular mediante una red privada gratuita (Tailscale).' },
+      { icon: 'refresh', title: 'Actualizaciones con un clic', text: 'El programa avisa cuando hay versión nueva, comprueba su firma digital y se actualiza sin tocar los datos.' },
+      { icon: 'printer', title: 'Tickets e impresión', text: 'Ticketera térmica de 58 u 80 mm, impresora A4 o solo PDF. Prueba de impresión incluida.' },
+      { icon: 'network', title: 'Una o varias PCs', text: 'Una computadora o varias en red local: un servidor y las cajas que necesites.' },
+    ],
+    modules: [
+      'Panel principal', 'Punto de venta', 'Ventas', 'Productos', 'Laboratorios y catálogos', 'Inventario y lotes',
+      'Compras', 'Caja', 'Clientes', 'Proveedores', 'Reportes', 'Promociones', 'Cuentas y gastos', 'Sorteos',
+      'Comprobantes electrónicos', 'Usuarios y seguridad', 'Auditoría', 'Copias de seguridad', 'Configuración',
+      'Consulta desde el celular',
+    ],
+    requirements: [
+      { label: 'Sistema operativo', value: 'Windows 10 u 11 de 64 bits' },
+      { label: 'Memoria', value: '4 GB de RAM o más' },
+      { label: 'Disco', value: '2 GB libres' },
+      { label: 'Base de datos', value: 'Firebird 2.5.9 de 64 bits (gratuita; se instala antes)' },
+      { label: 'Permisos', value: 'Cuenta de Windows con permiso de administrador para instalar' },
+      { label: 'Internet', value: 'Solo para descargar y actualizar. Para vender no se necesita.' },
+      { label: 'Impresora (opcional)', value: 'Térmica de 58 u 80 mm, o A4, instalada en Windows' },
+    ],
+    operatingSystems: ['Windows 10 (64 bits)', 'Windows 11 (64 bits)'],
+    database: 'Firebird 2.5.9',
+    installTime: 'Unos 20 minutos en una farmacia con una sola computadora.',
+    installSteps: [
+      { title: 'Descarga los archivos', text: 'El instalador de FARMA PRO y la guía de instalación en PDF, desde esta página.' },
+      { title: 'Instala Firebird 2.5.9 (64 bits)', text: 'Desde su página oficial. En la PC servidor, instalación completa; en las cajas, solo el cliente.' },
+      { title: 'Protege la base de datos', text: 'Cambia la contraseña del usuario SYSDBA de Firebird, como explica la guía.' },
+      { title: 'Ejecuta el instalador', text: 'Si Windows muestra «Windows protegió su PC», pulsa «Más información» → «Ejecutar de todas formas».' },
+      { title: 'Asistente de primer inicio', text: 'Elige el papel de la PC (servidor o estación) y crea el superadministrador.' },
+      { title: 'Activa tu licencia', text: 'Tienes 15 días de prueba completa. Pide tu clave por WhatsApp desde Configuración → Licencia.' },
+    ],
+    docs: [
+      { label: 'Guía de instalación (PDF)', description: 'Paso a paso: Firebird, instalación, usuarios, licencia y más PCs.', fileName: 'Guia_de_instalacion_FARMA_PRO.pdf' },
+      { label: 'Manual de usuario (PDF)', description: 'Uso diario: ventas, inventario, caja, reportes y configuración.', fileName: 'Manual_de_usuario_FARMA_PRO.pdf' },
+      { label: 'Léame', description: 'Instrucciones breves de la versión.', fileName: 'LEAME.txt' },
+    ],
+    faq: [
+      { q: '¿Puedo probarlo antes de comprar?', a: 'Sí. En la pantalla de inicio de sesión pulsa «Probar la demostración»: se abre una farmacia de ejemplo con datos ficticios, separada de tus datos reales. Además, la instalación nueva trae 15 días de prueba completa.' },
+      { q: '¿Necesito internet para vender?', a: 'No. Internet solo se usa para descargar el programa, recibir actualizaciones y, si los usas, enviar comprobantes electrónicos o consultar desde el celular.' },
+      { q: '¿Cómo se paga la licencia?', a: 'Hay dos planes: mensual (con fecha de vencimiento) o pago único (sin vencimiento). Escríbenos por WhatsApp para conocer los precios y activar tu licencia.' },
+      { q: '¿Qué pasa si la licencia vence?', a: 'El sistema pasa a solo consulta: puedes ver tus datos y reportes y hacer copias de seguridad, pero no vender ni registrar movimientos hasta renovar. Tus datos nunca se borran.' },
+      { q: '¿Funciona con varias computadoras?', a: 'Sí. Una PC hace de servidor (guarda los datos) y las demás se conectan como cajas en la red local.' },
+      { q: '¿Emite boletas y facturas electrónicas?', a: 'Sí, a través de un proveedor (PSE u OSE) o directo con SUNAT. Necesitas contratar ese servicio; el sistema nunca simula la aceptación de un comprobante.' },
+      { q: '¿Cómo me entero de las actualizaciones?', a: 'El programa avisa cuando hay una versión nueva y se actualiza con un clic, comprobando antes que el archivo sea el original. Tus datos no se tocan.' },
+      { q: 'Windows dice que el archivo «no se descarga con frecuencia»', a: 'Es normal en programas nuevos. Elige «Conservar». Al ejecutarlo, si aparece «Windows protegió su PC», pulsa «Más información» → «Ejecutar de todas formas». Descarga FARMA PRO solo desde esta página.' },
+    ],
+    download: {
+      github: { owner: 'jcramigofiel20-collab', repo: 'farma-pro-descargas' },
+      primary: {
+        label: 'Instalador para Windows',
+        fileName: 'FARMA_PRO_Instalador.exe',
+        kind: 'installer',
+        description: 'Windows 10 u 11 de 64 bits. Un solo archivo.',
+      },
+      extras: [
+        { label: 'Guía de instalación', fileName: 'Guia_de_instalacion_FARMA_PRO.pdf', kind: 'pdf', description: 'Instalación paso a paso.' },
+        { label: 'Manual de usuario', fileName: 'Manual_de_usuario_FARMA_PRO.pdf', kind: 'pdf', description: 'Uso diario del sistema.' },
+        { label: 'Huellas SHA-256', fileName: 'SHA256SUMS.txt', kind: 'text', description: 'Para comprobar que el archivo descargado es el original.' },
+      ],
+      fallback: { version: '1.0.0', date: '2026-10-26', sizeBytes: 117929506 },
+      warnings: [
+        'Instala primero Firebird 2.5.9 de 64 bits (la guía explica cómo).',
+        'Si el navegador avisa que el archivo no se descarga con frecuencia, elige «Conservar».',
+        'Si ya tienes FARMA PRO instalado, no descargues nada: el programa se actualiza solo con un clic.',
+      ],
+    },
+    whatsappMessage: 'Hola Joab, quiero información sobre FARMA PRO, el sistema para farmacias.',
+  },
+]

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es-PE">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#070a18" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- seo:start -->
+    <title>JoabSystems — El software que impulsa tu negocio</title>
+    <meta name="description" content="Sistemas de gestión para negocios del Perú. Conoce FARMA PRO y descárgalo desde su enlace oficial." />
+    <!-- seo:end -->
+    <style>
+      /* Pantalla de carga mientras se abre la aplicación */
+      html, body { background: #070a18; margin: 0; }
+      .boot { min-height: 100vh; display: grid; place-items: center; }
+      .boot svg { width: 56px; height: 56px; animation: boot 1.4s ease-in-out infinite; }
+      @keyframes boot { 0%, 100% { opacity: .45; transform: scale(.94); } 50% { opacity: 1; transform: scale(1); } }
+      @media (prefers-reduced-motion: reduce) { .boot svg { animation: none; } }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="boot" role="status" aria-label="Cargando JoabSystems">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M32 3 57 17.5v29L32 61 7 46.5v-29Z" fill="#2563eb" />
+          <path d="M38 19v18.5c0 5.8-3.6 9.5-9.3 9.5-3.6 0-6.4-1.4-8.2-4l3.9-3.4c1 1.4 2.4 2.2 4 2.2 2.4 0 3.8-1.6 3.8-4.6V19Z" fill="#fff" />
+        </svg>
+      </div>
+    </div>
+    <noscript>
+      <p style="color:#e2e8f0;font-family:system-ui;text-align:center;padding:24px">
+        Activa JavaScript para ver JoabSystems. Soporte por WhatsApp: +51 929 509 865.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
