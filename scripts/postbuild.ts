@@ -11,11 +11,14 @@ import { allPaths, metaFor } from '../src/data/seo.ts'
 const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist')
 const template = readFileSync(join(dist, 'index.html'), 'utf8')
 
+// GitHub Pages sirve cada dirección como carpeta y agrega la barra final: esa es la dirección definitiva.
+const publicUrl = (path: string) => `${site.url}${path === '/' ? '/' : `${path}/`}`
+
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 function render(path: string, extra = '') {
   const meta = metaFor(path)
-  const url = `${site.url}${path === '/' ? '/' : path}`
+  const url = publicUrl(path)
   const image = `${site.url}/${meta.image}`
   const block = [
     `<title>${esc(meta.title)}</title>`,
@@ -53,7 +56,7 @@ const today = new Date().toISOString().slice(0, 10)
 writeFileSync(
   join(dist, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${paths
-    .map((p) => `  <url><loc>${site.url}${p === '/' ? '/' : p}</loc><lastmod>${today}</lastmod></url>`)
+    .map((p) => `  <url><loc>${publicUrl(p)}</loc><lastmod>${today}</lastmod></url>`)
     .join('\n')}\n</urlset>\n`,
 )
 writeFileSync(join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site.url}/sitemap.xml\n`)

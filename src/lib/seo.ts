@@ -18,7 +18,9 @@ export function useSeo() {
   const { pathname } = useLocation()
   useEffect(() => {
     const meta = metaFor(pathname)
-    const url = `${site.url}${pathname}`
+    // Misma dirección definitiva que en la publicación (con barra final).
+    const clean = pathname.replace(/\/+$/, '')
+    const url = `${site.url}${clean ? `${clean}/` : '/'}`
     document.title = meta.title
     setMeta('name', 'description', meta.description)
     setMeta('property', 'og:title', meta.title)
