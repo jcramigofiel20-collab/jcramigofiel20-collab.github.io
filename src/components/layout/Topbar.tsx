@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react'
 import { Download, Menu, MessageCircle, Search, X } from 'lucide-react'
 import { metaFor } from '../../data/seo'
 import { allSystems } from '../../lib/catalog'
+import { latestStable, useReleases } from '../../lib/github'
 import { SearchBox } from './SearchBox'
 
 export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
@@ -11,6 +12,9 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const section = metaFor(pathname).section
   const available = allSystems().filter((s) => s.status === 'disponible')
+  // Con un solo sistema publicado, se muestra su última versión (leída de GitHub).
+  const single = available.length === 1 ? available[0] : undefined
+  const live = latestStable(useReleases(single?.download?.github).releases)
 
   return (
     <header className="sticky top-0 z-30 border-b border-white/6 bg-ink-950/75 backdrop-blur-xl">
@@ -51,8 +55,8 @@ export function Topbar({ onOpenMenu }: { onOpenMenu: () => void }) {
               title="Sistemas con versión publicada"
             >
               <span className="size-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_2px_rgba(52,211,153,0.6)]" aria-hidden="true" />
-              {available.length === 1 && available[0].download
-                ? `${available[0].name} v${available[0].download.fallback.version} disponible`
+              {single?.download
+                ? `${single.name} v${live?.version ?? single.download.fallback.version} disponible`
                 : `${available.length} sistemas disponibles`}
             </Link>
           )}

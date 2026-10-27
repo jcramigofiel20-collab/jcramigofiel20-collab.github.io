@@ -1,11 +1,14 @@
-import { useState, type ReactNode } from 'react'
-import { Link, useParams } from 'react-router'
+import { useEffect, useState, type ReactNode } from 'react'
+import { Link, useLocation, useParams } from 'react-router'
 import { motion, useReducedMotion } from 'motion/react'
 import {
   ArrowLeft, BookOpen, Calendar, CircleHelp, Code, Cpu, Database, Download, ExternalLink, FileText, HardDrive,
-  Hash, Images, ListChecks, MessageCircle, Monitor, Phone, TriangleAlert, ZoomIn,
+  Hash, Images, ListChecks, MessageCircle, Monitor, Phone, PlayCircle, Tag, TriangleAlert, ZoomIn,
 } from 'lucide-react'
+import { DemoSection } from '../components/DemoSection'
 import { Lightbox } from '../components/Lightbox'
+import { PricingPlans } from '../components/PricingPlans'
+import { ProductTour } from '../components/ProductTour'
 import { accentRing } from '../components/SystemCard'
 import { Icon } from '../components/ui/Icon'
 import { ExternalButton, Pill, Reveal, SectionTitle, StatusBadge } from '../components/ui/primitives'
@@ -16,9 +19,12 @@ import { latestStable, useReleases } from '../lib/github'
 import { asset, formatDate, formatSize, phoneUrl, whatsappUrl } from '../lib/format'
 import NotFound from './NotFound'
 
-const sections = [
+const allSections = [
+  { id: 'recorrido', label: 'Recorrido' },
   { id: 'descripcion', label: 'Descripción' },
   { id: 'funciones', label: 'Funciones' },
+  { id: 'demostracion', label: 'Prueba gratis' },
+  { id: 'planes', label: 'Planes y precios' },
   { id: 'capturas', label: 'Capturas' },
   { id: 'modulos', label: 'Módulos' },
   { id: 'requisitos', label: 'Requisitos' },
@@ -68,10 +74,18 @@ export default function SystemDetail() {
 
 function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; reduce: boolean; shot: number | null; setShot: (i: number | null) => void }) {
   const info = useReleaseInfo(system)
+  const { hash } = useLocation()
+  // Al llegar con #planes, #demostracion…, se baja a esa sección cuando ya está dibujada.
+  useEffect(() => {
+    if (!hash) return
+    const t = setTimeout(() => document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 350)
+    return () => clearTimeout(t)
+  }, [hash])
   const category = findCategory(system.category)
   const downloadable = isDownloadable(system)
   const dl = system.download
   const installerUrl = dl ? latestAssetUrl(system, dl.primary.fileName) : undefined
+  const cheapest = system.plans?.length ? [...system.plans].sort((a, b) => a.price - b.price)[0] : undefined
   const imageNote = system.screenshotsAreReal
     ? system.screenshotsNote ?? 'Capturas reales del programa.'
     : 'Imágenes ilustrativas: todavía no son capturas del programa terminado.'
@@ -98,6 +112,7 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
             <StatusBadge status={system.status} />
             {category && <Pill>{category.name}</Pill>}
             {info.version && <Pill>Versión {info.version}</Pill>}
+            {system.demo && <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">Demostración gratis</span>}
           </div>
           <div className="mt-5 flex items-center gap-4">
             <span className={`grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br ${accentRing[system.accent]} text-white shadow-[0_12px_30px_-10px_rgba(59,130,246,0.8)]`}>
@@ -128,6 +143,18 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
                   <MessageCircle className="size-4" aria-hidden="true" />
                   En desarrollo · Solicitar información
                 </ExternalButton>
+              )}
+              {system.demo && (
+                <a href="#demostracion" onClick={scrollTo('demostracion')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 text-sm font-semibold text-emerald-200 transition hover:bg-emerald-400/15">
+                  <PlayCircle className="size-4" aria-hidden="true" />
+                  Prueba gratis
+                </a>
+              )}
+              {cheapest && (
+                <a href="#planes" onClick={scrollTo('planes')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/10 px-4 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-400/15">
+                  <Tag className="size-4" aria-hidden="true" />
+                  Planes desde S/ {cheapest.price.toFixed(2)}
+                </a>
               )}
               <a href="#documentacion" onClick={scrollTo('documentacion')} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-white/10 px-4 text-sm font-semibold text-slate-100 transition hover:border-white/20 hover:bg-white/5 ">
                 <BookOpen className="size-4" aria-hidden="true" />
@@ -164,8 +191,8 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
               <img
                 src={asset(system.heroImage.src)}
                 alt={`${system.name}: ${system.heroImage.title}. ${system.heroImage.caption}`}
-                width={1366}
-                height={768}
+                width={1600}
+                height={900}
                 fetchPriority="high"
                 className="w-full transition duration-500 group-hover:scale-[1.015]"
               />
@@ -194,7 +221,7 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
       {/* Índice de la ficha */}
       <nav aria-label="Secciones de la ficha" className="sticky top-16 z-20 -mx-4 mt-10 border-y border-white/6 bg-ink-950/80 px-4 backdrop-blur-xl sm:-mx-6 sm:px-6 lg:-mx-10 lg:px-10">
         <ul className="scrollbar-thin flex gap-1 overflow-x-auto py-2">
-          {sections.map((s) => (
+          {allSections.filter(s => (s.id !== 'recorrido' || system.tour?.length) && (s.id !== 'demostracion' || system.demo) && (s.id !== 'planes' || system.plans?.length)).map((s) => (
             <li key={s.id} className="shrink-0">
               <a href={`#${s.id}`} onClick={scrollTo(s.id)} className="inline-flex min-h-9 items-center rounded-lg px-3 text-xs font-semibold text-slate-400 transition hover:bg-white/6 hover:text-white">
                 {s.label}
@@ -205,6 +232,13 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
       </nav>
 
       <div className="mt-12 space-y-20">
+        {system.tour && system.tour.length > 0 && (
+          <Section id="recorrido">
+            <SectionTitle eyebrow="Recorrido interactivo" title={`Conoce ${system.name} pantalla por pantalla`} description="Elige una pantalla y toca los números: te explicamos qué hace cada parte, con capturas reales del programa." />
+            <ProductTour stops={system.tour} note={system.screenshotsAreReal ? 'Capturas reales con datos de demostración.' : 'Imágenes ilustrativas.'} />
+          </Section>
+        )}
+
         <Section id="descripcion">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr]">
             <div>
@@ -241,6 +275,19 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
             ))}
           </div>
         </Section>
+
+        {system.demo && (
+          <Section id="demostracion">
+            <DemoSection system={system} />
+          </Section>
+        )}
+
+        {system.plans && system.plans.length > 0 && (
+          <Section id="planes">
+            <SectionTitle eyebrow="Planes y precios" title="Elige el plan para tu farmacia" description="Todos los planes incluyen el sistema completo y sus actualizaciones. Cambia la forma de pago y los mantenimientos incluidos." />
+            <PricingPlans system={system} />
+          </Section>
+        )}
 
         <Section id="capturas">
           <SectionTitle eyebrow="Capturas" title={system.screenshotsAreReal ? 'Así se ve el programa' : 'Vista previa'} description={imageNote} />

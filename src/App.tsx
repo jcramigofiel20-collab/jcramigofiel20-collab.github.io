@@ -9,6 +9,7 @@ const Catalog = lazy(() => import('./pages/Catalog'))
 const SystemDetail = lazy(() => import('./pages/SystemDetail'))
 const Categories = lazy(() => import('./pages/Categories'))
 const Downloads = lazy(() => import('./pages/Downloads'))
+const Plans = lazy(() => import('./pages/Plans'))
 const Updates = lazy(() => import('./pages/Updates'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
         { path: 'sistemas', element: <Catalog /> },
         { path: 'sistemas/:slug', element: <SystemDetail /> },
         { path: 'categorias', element: <Categories /> },
+        { path: 'planes', element: <Plans /> },
         { path: 'descargas', element: <Downloads /> },
         { path: 'actualizaciones', element: <Updates /> },
         { path: 'nosotros', element: <About /> },

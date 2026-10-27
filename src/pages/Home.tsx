@@ -1,12 +1,12 @@
 import { Link } from 'react-router'
 import { motion, useReducedMotion } from 'motion/react'
-import { ArrowRight, BookOpen, FolderKanban, Gauge, LifeBuoy, MousePointerClick, RefreshCw } from 'lucide-react'
+import { ArrowRight, BookOpen, FolderKanban, Gauge, LifeBuoy, MousePointerClick, PlayCircle, RefreshCw, Wrench } from 'lucide-react'
 import { HeroIllustration } from '../components/HeroIllustration'
 import { SystemCard } from '../components/SystemCard'
 import { Icon } from '../components/ui/Icon'
 import { ButtonLink, Reveal, SectionTitle } from '../components/ui/primitives'
 import { site } from '../config/site'
-import { allCategories, featuredSystems, systemsInCategory } from '../lib/catalog'
+import { allCategories, featuredSystems, findSystem, systemsInCategory } from '../lib/catalog'
 
 const advantages = [
   { icon: MousePointerClick, title: 'Interfaz intuitiva', text: 'Pantallas claras, atajos de teclado y menús pensados para el trabajo del día a día.' },
@@ -20,6 +20,7 @@ const advantages = [
 export default function Home() {
   const reduce = useReducedMotion()
   const featured = featuredSystems()
+  const farma = findSystem('farmacia')
   const up = (delay: number) => ({
     initial: reduce ? false : { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
@@ -116,6 +117,61 @@ export default function Home() {
           </Reveal>
         </div>
       </section>
+
+      {/* Prueba gratis y planes */}
+      {farma?.plans && (
+        <Reveal>
+          <section className="grid gap-5 lg:grid-cols-[1fr_1.2fr]">
+            <Link to="/sistemas/farmacia#demostracion" className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-400/25 bg-gradient-to-br from-emerald-500/15 via-ink-850 to-ink-900 p-7 transition hover:-translate-y-1 hover:border-emerald-400/45 sm:p-8">
+              <div className="absolute -top-16 -right-16 size-48 rounded-full bg-emerald-400/20 blur-3xl" aria-hidden="true" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-3 py-1 text-xs font-bold text-ink-950">
+                  <PlayCircle className="size-4" aria-hidden="true" /> Prueba de demostración
+                </span>
+                <h2 className="mt-4 font-display text-2xl font-bold text-white">Pruébalo gratis antes de comprar</h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-300">
+                  FARMA PRO incluye una farmacia de demostración con datos ficticios y {farma.demo?.trialDays} días de prueba completa con tu propia farmacia.
+                </p>
+                <ol className="mt-5 space-y-2.5">
+                  {farma.demo?.steps.map((s, i) => (
+                    <li key={s.title} className="flex items-center gap-3 text-sm text-slate-200">
+                      <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-emerald-400/90 text-xs font-extrabold text-ink-950">{i + 1}</span>
+                      {s.title}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <span className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300">
+                Cómo probarlo <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
+              </span>
+            </Link>
+            <div className="glass rounded-3xl p-7 sm:p-8">
+              <p className="text-xs font-semibold tracking-[0.18em] text-cyan-300 uppercase">Planes de FARMA PRO</p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-white">Paga como más te convenga</h2>
+              <ul className="mt-5 grid gap-3 sm:grid-cols-3">
+                {farma.plans.map((p) => (
+                  <li key={p.id} className={`rounded-2xl border p-4 ${p.highlight ? 'border-cyan-400/40 bg-cyan-400/10' : 'border-white/8 bg-white/[0.03]'}`}>
+                    <p className="text-sm font-semibold text-slate-300">{p.name}</p>
+                    <p className="mt-1 font-display text-2xl font-extrabold text-white">S/ {p.price.toLocaleString('es-PE', { minimumFractionDigits: Number.isInteger(p.price) ? 0 : 2 })}</p>
+                    <p className="text-xs text-slate-400">{p.period}</p>
+                    <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-cyan-200">
+                      <Wrench className="size-3.5" aria-hidden="true" /> {p.features.find((f) => /mantenimiento/i.test(f))?.split(',')[0]}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 flex items-center gap-2 text-sm text-slate-300">
+                <RefreshCw className="size-4 text-cyan-300" aria-hidden="true" /> Todos los planes incluyen las actualizaciones del sistema.
+              </p>
+              <div className="mt-5">
+                <ButtonLink to="/planes">
+                  Ver planes y precios <ArrowRight className="size-4" aria-hidden="true" />
+                </ButtonLink>
+              </div>
+            </div>
+          </section>
+        </Reveal>
+      )}
 
       {/* Ventajas */}
       <section>

@@ -37,6 +37,12 @@ const pages: Record<string, PageMeta> = {
     image: DEFAULT_IMAGE,
     section: 'Categorías',
   },
+  '/planes': {
+    title: `Planes y precios — ${site.brand}`,
+    description: 'FARMA PRO: plan mensual S/ 39.90, anual S/ 460 o un solo pago S/ 1,200. Con actualizaciones y demostración gratis.',
+    image: 'img/og-farma-pro.png',
+    section: 'Planes y precios',
+  },
   '/descargas': {
     title: `Centro de descargas — ${site.brand}`,
     description: 'Descarga los instaladores oficiales, manuales y versiones anteriores de los sistemas de JoabSystems.',

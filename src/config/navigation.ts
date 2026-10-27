@@ -1,4 +1,4 @@
-import { Download, Headset, History, House, Info, LayoutGrid, Layers, type LucideIcon } from 'lucide-react'
+import { Download, Headset, History, House, Info, LayoutGrid, Layers, Tag, type LucideIcon } from 'lucide-react'
 
 export interface NavItem {
   to: string
@@ -13,6 +13,7 @@ export const navigation: NavItem[] = [
   { to: '/', label: 'Inicio', icon: House, end: true },
   { to: '/sistemas', label: 'Catálogo de sistemas', icon: LayoutGrid },
   { to: '/categorias', label: 'Categorías', icon: Layers },
+  { to: '/planes', label: 'Planes y precios', icon: Tag },
   { to: '/descargas', label: 'Descargas', icon: Download },
   { to: '/actualizaciones', label: 'Actualizaciones', icon: History },
   { to: '/nosotros', label: 'Nosotros', icon: Info },

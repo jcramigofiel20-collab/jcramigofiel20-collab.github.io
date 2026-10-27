@@ -33,6 +33,48 @@ export interface Screenshot {
   caption: string
 }
 
+/** Punto que se toca sobre una captura del recorrido. x e y en porcentaje del ancho y alto de la imagen. */
+export interface TourHotspot {
+  x: number
+  y: number
+  title: string
+  text: string
+}
+
+/** Una parada del recorrido interactivo: una pantalla del programa con sus partes explicadas. */
+export interface TourStop {
+  id: string
+  label: string
+  icon: IconKey
+  title: string
+  intro: string
+  image: Screenshot
+  hotspots: TourHotspot[]
+}
+
+export interface DemoInfo {
+  /** Datos de acceso de la demostración (ficticia, pública a propósito). */
+  user: string
+  password: string
+  trialDays: number
+  steps: { title: string; text: string }[]
+  points: string[]
+  image?: Screenshot
+}
+
+export interface Plan {
+  id: string
+  name: string
+  /** Precio en soles. */
+  price: number
+  /** Texto junto al precio: «/ mes», «/ año», «pago único». */
+  period: string
+  description: string
+  badge?: string
+  highlight?: boolean
+  features: string[]
+}
+
 export interface Feature {
   icon: IconKey
   title: string
@@ -94,6 +136,12 @@ export interface SoftwareSystem {
   screenshotsAreReal: boolean
   screenshotsNote?: string
   gallery: Screenshot[]
+  /** Recorrido interactivo por las pantallas principales. */
+  tour?: TourStop[]
+  demo?: DemoInfo
+  plans?: Plan[]
+  /** Aclaraciones bajo los planes (moneda, cómo activar…). */
+  plansNotes?: string[]
   problems: { title: string; text: string }[]
   features: Feature[]
   modules: string[]

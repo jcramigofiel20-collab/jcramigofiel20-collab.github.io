@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
-import { Archive, Check, Copy, Download, ExternalLink, FileText, MessageCircle, ShieldCheck, TriangleAlert, WifiOff } from 'lucide-react'
+import { Archive, Check, Copy, Download, ExternalLink, FileText, MessageCircle, PlayCircle, ShieldCheck, TriangleAlert, WifiOff } from 'lucide-react'
 import { accentRing } from '../components/SystemCard'
 import { Icon } from '../components/ui/Icon'
 import { ExternalButton, PageHeader, Pill, Reveal, Spinner, StatusBadge } from '../components/ui/primitives'
@@ -189,6 +189,17 @@ export default function Downloads() {
         description="Instaladores oficiales, manuales y versiones anteriores, publicados en GitHub Releases. Descarga los sistemas solo desde esta página."
       />
       <div className="space-y-8">
+        <Reveal>
+          <div className="flex flex-col gap-4 rounded-2xl border border-emerald-400/25 bg-emerald-400/[0.07] p-5 sm:flex-row sm:items-center sm:justify-between">
+            <p className="flex items-start gap-3 text-sm text-emerald-50">
+              <PlayCircle className="mt-0.5 size-5 shrink-0 text-emerald-300" aria-hidden="true" />
+              <span><strong>Descarga gratis.</strong> El sistema trae una demostración con datos ficticios y 15 días de prueba completa. Pagas solo si decides usarlo.</span>
+            </p>
+            <Link to="/planes" className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-white/15 px-4 text-sm font-semibold text-white hover:bg-white/8">
+              Ver planes y precios
+            </Link>
+          </div>
+        </Reveal>
         {ready.map((s, i) => (
           <Reveal key={s.slug} delay={i * 0.05}>
             <DownloadPanel system={s} />
