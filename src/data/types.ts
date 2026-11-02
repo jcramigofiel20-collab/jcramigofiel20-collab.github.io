@@ -57,6 +57,8 @@ export interface DemoInfo {
   user: string
   password: string
   trialDays: number
+  /** Demostración que funciona en el navegador, sin instalar nada (opcional). */
+  onlineUrl?: string
   steps: { title: string; text: string }[]
   points: string[]
   image?: Screenshot

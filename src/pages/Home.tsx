@@ -122,7 +122,7 @@ export default function Home() {
       {farma?.plans && (
         <Reveal>
           <section className="grid gap-5 lg:grid-cols-[1fr_1.2fr]">
-            <Link to="/sistemas/farmacia#demostracion" className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-400/25 bg-gradient-to-br from-emerald-500/15 via-ink-850 to-ink-900 p-7 transition hover:-translate-y-1 hover:border-emerald-400/45 sm:p-8">
+            <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-emerald-400/25 bg-gradient-to-br from-emerald-500/15 via-ink-850 to-ink-900 p-7 transition hover:-translate-y-1 hover:border-emerald-400/45 sm:p-8">
               <div className="absolute -top-16 -right-16 size-48 rounded-full bg-emerald-400/20 blur-3xl" aria-hidden="true" />
               <div className="relative">
                 <span className="inline-flex items-center gap-2 rounded-full bg-emerald-400 px-3 py-1 text-xs font-bold text-ink-950">
@@ -130,7 +130,7 @@ export default function Home() {
                 </span>
                 <h2 className="mt-4 font-display text-2xl font-bold text-white">Pruébalo gratis antes de comprar</h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-300">
-                  FARMA PRO incluye una farmacia de demostración con datos ficticios y {farma.demo?.trialDays} días de prueba completa con tu propia farmacia.
+                  Pruébalo ahora mismo en tu navegador, sin instalar nada. Y al instalarlo trae una farmacia de demostración y {farma.demo?.trialDays} días de prueba completa con tu propia farmacia.
                 </p>
                 <ol className="mt-5 space-y-2.5">
                   {farma.demo?.steps.map((s, i) => (
@@ -141,10 +141,17 @@ export default function Home() {
                   ))}
                 </ol>
               </div>
-              <span className="relative mt-6 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300">
-                Cómo probarlo <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
-              </span>
-            </Link>
+              <div className="relative mt-6 flex flex-wrap items-center gap-4">
+                {farma.demo?.onlineUrl && (
+                  <a href={farma.demo.onlineUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 px-5 text-sm font-bold text-ink-950 transition hover:brightness-110">
+                    <PlayCircle className="size-4" aria-hidden="true" /> Probar en línea ahora
+                  </a>
+                )}
+                <Link to="/sistemas/farmacia#demostracion" className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-300">
+                  Cómo probarlo <ArrowRight className="size-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                </Link>
+              </div>
+            </div>
             <div className="glass rounded-3xl p-7 sm:p-8">
               <p className="text-xs font-semibold tracking-[0.18em] text-cyan-300 uppercase">Planes de FARMA PRO</p>
               <h2 className="mt-2 font-display text-2xl font-bold text-white">Paga como más te convenga</h2>

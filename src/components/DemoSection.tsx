@@ -1,4 +1,4 @@
-import { CalendarCheck, Check, Download, KeyRound, PlayCircle } from 'lucide-react'
+import { CalendarCheck, Check, Download, Globe, KeyRound, PlayCircle } from 'lucide-react'
 import type { SoftwareSystem } from '../data/types'
 import { isDownloadable, latestAssetUrl } from '../lib/catalog'
 import { asset } from '../lib/format'
@@ -23,6 +23,26 @@ export function DemoSection({ system }: { system: SoftwareSystem }) {
             {system.name} trae una <strong className="text-white">farmacia de demostración</strong> lista para usar. Explora
             todo el sistema sin pagar y sin cargar tus productos.
           </p>
+
+          {demo.onlineUrl && (
+            <div className="mt-6 rounded-2xl border border-orange-400/40 bg-orange-500/10 p-4 sm:p-5">
+              <p className="flex items-center gap-2 text-sm font-bold text-orange-200">
+                <Globe className="size-4" aria-hidden="true" /> Sin instalar nada: pruébalo ahora en tu navegador
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-300">
+                Vende, registra productos e ingresa stock con lotes desde la PC o el celular. Ya trae productos de ejemplo.
+              </p>
+              <a
+                href={demo.onlineUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 px-5 text-sm font-bold text-ink-950 shadow-[0_10px_30px_-10px_rgba(249,115,22,0.8)] transition hover:brightness-110"
+              >
+                <PlayCircle className="size-4" aria-hidden="true" />
+                Probar la demo en línea
+              </a>
+            </div>
+          )}
 
           <ol className="mt-6 space-y-3">
             {demo.steps.map((s, i) => (
@@ -73,7 +93,7 @@ export function DemoSection({ system }: { system: SoftwareSystem }) {
               <p className="mt-1 text-sm text-white">
                 Contraseña <code className="rounded bg-white/10 px-1.5 py-0.5 text-cyan-200">{demo.password}</code>
               </p>
-              <p className="mt-2 text-xs text-slate-500">Entra sola con el botón; estos datos son por si los pide.</p>
+              <p className="mt-2 text-xs text-slate-500">Sirven para la demo en línea y para la del programa instalado.</p>
             </div>
             <div className="glass rounded-2xl p-4">
               <p className="flex items-center gap-2 text-xs font-semibold text-slate-400">
