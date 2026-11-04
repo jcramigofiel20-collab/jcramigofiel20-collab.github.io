@@ -4,9 +4,10 @@ import { ArrowRight, BookOpen, FolderKanban, Gauge, LifeBuoy, MousePointerClick,
 import { HeroIllustration } from '../components/HeroIllustration'
 import { SystemCard } from '../components/SystemCard'
 import { Icon } from '../components/ui/Icon'
-import { ButtonLink, Reveal, SectionTitle } from '../components/ui/primitives'
+import { ButtonLink, Reveal, SectionTitle, StatusBadge } from '../components/ui/primitives'
 import { site } from '../config/site'
-import { allCategories, featuredSystems, findSystem, systemsInCategory } from '../lib/catalog'
+import { allCategories, allSystems, featuredSystems, findCategory, findSystem, systemsInCategory } from '../lib/catalog'
+import { asset } from '../lib/format'
 
 const advantages = [
   { icon: MousePointerClick, title: 'Interfaz intuitiva', text: 'Pantallas claras, atajos de teclado y menús pensados para el trabajo del día a día.' },
@@ -20,6 +21,7 @@ const advantages = [
 export default function Home() {
   const reduce = useReducedMotion()
   const featured = featuredSystems()
+  const upcoming = allSystems().filter((s) => s.status !== 'disponible')
   const farma = findSystem('farmacia')
   const up = (delay: number) => ({
     initial: reduce ? false : { opacity: 0, y: 18 },
@@ -62,19 +64,21 @@ export default function Home() {
         </Reveal>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {allCategories().map((c, i) => {
-            const count = systemsInCategory(c.id).length
+            const inCategory = systemsInCategory(c.id)
+            const count = inCategory.filter((s) => s.status === 'disponible').length
+            const soon = inCategory.length > count
             return (
               <Reveal key={c.id} delay={i * 0.04}>
                 <Link
-                  to={count ? `/sistemas?categoria=${c.id}` : '/categorias'}
+                  to={count || soon ? `/sistemas?categoria=${c.id}` : '/categorias'}
                   className="group glass flex h-full flex-col gap-3 rounded-2xl p-4 transition duration-300 hover:-translate-y-1 hover:border-white/15"
                 >
-                  <span className={`grid size-10 place-items-center rounded-xl transition ${count ? 'bg-blue-500/15 text-cyan-300 group-hover:bg-blue-500/25' : 'bg-white/5 text-slate-500'}`}>
+                  <span className={`grid size-10 place-items-center rounded-xl transition ${count ? 'bg-blue-500/15 text-cyan-300 group-hover:bg-blue-500/25' : soon ? 'bg-violet-500/15 text-violet-300' : 'bg-white/5 text-slate-500'}`}>
                     <Icon name={c.icon} className="size-5" />
                   </span>
                   <span className="text-sm leading-snug font-semibold text-white">{c.name}</span>
-                  <span className={`mt-auto text-xs ${count ? 'text-emerald-300' : 'text-slate-500'}`}>
-                    {count ? `${count} disponible${count > 1 ? 's' : ''}` : 'Próximamente'}
+                  <span className={`mt-auto text-xs ${count ? 'text-emerald-300' : soon ? 'text-violet-300' : 'text-slate-500'}`}>
+                    {count ? `${count} disponible${count > 1 ? 's' : ''}` : soon ? 'Muy pronto' : 'Próximamente'}
                   </span>
                 </Link>
               </Reveal>
@@ -107,6 +111,23 @@ export default function Home() {
                 Estamos preparando nuevas soluciones para otros rubros. Cuando estén listas aparecerán aquí, con su
                 instalador y su documentación. ¿Tienes un negocio con necesidades especiales? Conversemos.
               </p>
+              {upcoming.length > 0 && (
+                <ul className="relative mt-5 space-y-2">
+                  {upcoming.map((s) => (
+                    <li key={s.slug}>
+                      <Link to={`/sistemas/${s.slug}`} className="group flex items-center gap-3 rounded-2xl border border-white/8 bg-white/[0.03] p-3 transition hover:border-cyan-400/40">
+                        {s.heroImage && <img src={asset(s.heroImage.thumb)} alt="" width={96} height={54} loading="lazy" className="h-12 w-20 shrink-0 rounded-lg object-cover" />}
+                        <span className="min-w-0 flex-1">
+                          <span className="block text-sm font-semibold text-white">{s.name}</span>
+                          <span className="block truncate text-xs text-slate-400">{findCategory(s.category)?.name}</span>
+                        </span>
+                        <StatusBadge status={s.status} />
+                        <ArrowRight className="size-4 shrink-0 text-slate-500 transition group-hover:translate-x-0.5 group-hover:text-cyan-300" aria-hidden="true" />
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
               <div className="mt-6">
                 <ButtonLink to="/contacto" variant="secondary">
                   Escríbenos

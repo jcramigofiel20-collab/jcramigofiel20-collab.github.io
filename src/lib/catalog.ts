@@ -19,7 +19,7 @@ export const featuredSystems = () => systems.filter((s) => s.featured)
 export const statusLabel: Record<SystemStatus, string> = {
   disponible: 'Disponible',
   'en-desarrollo': 'En desarrollo',
-  proximamente: 'Próximamente',
+  proximamente: 'Muy pronto',
 }
 
 /** Quita tildes y mayúsculas para que «farmacia» encuentre «Farmacia» y «gestion» encuentre «gestión». */

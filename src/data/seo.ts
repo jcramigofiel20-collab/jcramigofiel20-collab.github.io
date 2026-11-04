@@ -85,7 +85,7 @@ export function metaFor(pathname: string): PageMeta {
     return {
       title: `${system.name} — ${system.fullName.split('—')[1]?.trim() ?? system.tagline} | ${site.brand}`,
       description: system.tagline,
-      image: system.slug === 'farmacia' ? 'img/og-farma-pro.png' : DEFAULT_IMAGE,
+      image: system.slug === 'farmacia' ? 'img/og-farma-pro.png' : system.slug === 'marketnex' ? 'img/og-marketnex.png' : DEFAULT_IMAGE,
       section: system.name,
     }
   }

@@ -138,7 +138,7 @@ export default function Catalog() {
       )}
 
       <p className="mt-10 text-center text-sm text-slate-500">
-        Por ahora el catálogo incluye los sistemas ya publicados. Los nuevos se agregarán aquí apenas estén listos.
+        Los sistemas marcados «Muy pronto» están en desarrollo: se podrán descargar apenas estén listos.
       </p>
     </>
   )
