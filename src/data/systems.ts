@@ -160,7 +160,7 @@ export const systems: SoftwareSystem[] = [
         'Además, al empezar con tu propia farmacia tienes 15 días de prueba completa, sin pagar nada.',
       ],
     },
-    // Tres formas de tener FARMA PRO. Precios de la web y del paquete: pendientes (sin «price» se muestra «Consúltanos»).
+    // Tres formas de tener FARMA PRO (sin «price» se mostraría «Consúltanos»).
     editions: [
       {
         id: 'escritorio',
@@ -186,7 +186,9 @@ export const systems: SoftwareSystem[] = [
         icon: 'zap',
         accent: 'cyan',
         badge: 'Nuevo',
-        priceNote: 'Pago mensual o anual · 15 días gratis al registrarte',
+        price: 49.9,
+        period: '/ mes',
+        priceNote: 'o S/ 499 al año (2 meses gratis) · 15 días gratis al registrarte',
         points: ['Desde el navegador de la PC, la laptop o el celular', 'Tu farmacia con su propia cuenta y sus datos separados', 'Nosotros cuidamos el servidor, las copias y las actualizaciones', 'Los mismos módulos que el escritorio'],
         details: [
           'Ideal si tienes una botica y quieres revisar tu negocio desde cualquier lugar: solo necesitas internet.',
@@ -201,7 +203,9 @@ export const systems: SoftwareSystem[] = [
         tagline: 'Paquete web para tu hosting',
         icon: 'database',
         accent: 'violet',
-        priceNote: 'Pago único · PHP + MySQL · Hostinger, cPanel o VPS',
+        price: 1290,
+        period: 'pago único',
+        priceNote: 'PHP + MySQL · Hostinger, cPanel o VPS · instalación asistida incluida',
         points: ['El sistema y la base de datos en tu hosting', 'Instalador en 3 pasos e importación por phpMyAdmin', 'Guía paso a paso en PDF', 'Te ayudamos con la instalación por WhatsApp'],
         details: [
           'Para empresas o cadenas que prefieren tener sus datos en su propio servidor y dominio.',
