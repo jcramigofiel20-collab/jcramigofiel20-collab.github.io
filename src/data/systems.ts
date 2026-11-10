@@ -160,6 +160,57 @@ export const systems: SoftwareSystem[] = [
         'Además, al empezar con tu propia farmacia tienes 15 días de prueba completa, sin pagar nada.',
       ],
     },
+    // Tres formas de tener FARMA PRO. Precios de la web y del paquete: pendientes (sin «price» se muestra «Consúltanos»).
+    editions: [
+      {
+        id: 'escritorio',
+        name: 'Programa de escritorio',
+        tagline: 'Para Windows · funciona sin internet',
+        icon: 'monitor',
+        accent: 'blue',
+        price: 39.9,
+        period: '/ mes',
+        priceNote: 'o S/ 460 al año · S/ 1,200 pago único',
+        points: ['Varias cajas en la red de tu farmacia', 'Firebird 5 incluido: no instalas nada más', 'App del celular para el dueño', '15 días de prueba completa'],
+        details: [
+          'La PC principal guarda la base de datos y las cajas se conectan a ella por la red local. Si se corta el internet, sigues vendiendo.',
+          'Requiere Windows 10 u 11 de 64 bits. Se actualiza con un clic cuando sale una versión nueva.',
+        ],
+        primary: { label: 'Descargar instalador', download: true },
+        secondary: { label: 'Ver planes', href: '#planes' },
+      },
+      {
+        id: 'web',
+        name: 'FARMA PRO Web',
+        tagline: 'En línea · sin instalar nada',
+        icon: 'zap',
+        accent: 'cyan',
+        badge: 'Nuevo',
+        priceNote: 'Pago mensual o anual · 15 días gratis al registrarte',
+        points: ['Desde el navegador de la PC, la laptop o el celular', 'Tu farmacia con su propia cuenta y sus datos separados', 'Nosotros cuidamos el servidor, las copias y las actualizaciones', 'Los mismos módulos que el escritorio'],
+        details: [
+          'Ideal si tienes una botica y quieres revisar tu negocio desde cualquier lugar: solo necesitas internet.',
+          'Punto de venta con efectivo, tarjeta, Yape y Plin; lotes con vencimiento (vende primero lo que vence antes); caja con arqueo; compras; clientes; reportes en Excel y PDF; usuarios con roles; y licencia por WhatsApp.',
+        ],
+        primary: { label: 'Pedir acceso por WhatsApp', whatsapp: 'Hola Joab, quiero usar FARMA PRO Web (en línea) en mi farmacia.' },
+        secondary: { label: 'Probar la demo', href: 'https://jcramigofiel20-collab.github.io/farma-pro-descargas/demo/' },
+      },
+      {
+        id: 'servidor',
+        name: 'En tu propio servidor',
+        tagline: 'Paquete web para tu hosting',
+        icon: 'database',
+        accent: 'violet',
+        priceNote: 'Pago único · PHP + MySQL · Hostinger, cPanel o VPS',
+        points: ['El sistema y la base de datos en tu hosting', 'Instalador en 3 pasos e importación por phpMyAdmin', 'Guía paso a paso en PDF', 'Te ayudamos con la instalación por WhatsApp'],
+        details: [
+          'Para empresas o cadenas que prefieren tener sus datos en su propio servidor y dominio.',
+          'Incluye los archivos del sistema, la base de datos (farma_web.sql), la guía de instalación y la licencia de pago único.',
+        ],
+        primary: { label: 'Comprar el paquete', whatsapp: 'Hola Joab, quiero comprar el paquete de FARMA PRO Web para instalarlo en mi propio servidor.' },
+        secondary: { label: 'Guía de instalación (PDF)', href: 'https://jcramigofiel20-collab.github.io/farma-pro-descargas/web/Guia_FARMA_PRO_Web_servidor_propio.pdf' },
+      },
+    ],
     plans: [
       {
         id: 'mensual',

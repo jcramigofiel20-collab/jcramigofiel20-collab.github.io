@@ -6,6 +6,7 @@ import {
   Hash, Images, ListChecks, MessageCircle, Monitor, Phone, PlayCircle, Tag, TriangleAlert, ZoomIn,
 } from 'lucide-react'
 import { DemoSection } from '../components/DemoSection'
+import { EditionsSection } from '../components/EditionsSection'
 import { Lightbox } from '../components/Lightbox'
 import { PricingPlans } from '../components/PricingPlans'
 import { ProductTour } from '../components/ProductTour'
@@ -23,6 +24,7 @@ const allSections = [
   { id: 'recorrido', label: 'Recorrido' },
   { id: 'descripcion', label: 'Descripción' },
   { id: 'funciones', label: 'Funciones' },
+  { id: 'formas', label: 'Formas de usarlo' },
   { id: 'demostracion', label: 'Prueba gratis' },
   { id: 'planes', label: 'Planes y precios' },
   { id: 'capturas', label: 'Capturas' },
@@ -88,6 +90,7 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
   const released = system.status === 'disponible'
   const hasSection: Record<string, boolean> = {
     recorrido: !!system.tour?.length,
+    formas: !!system.editions?.length,
     demostracion: !!system.demo,
     planes: !!system.plans?.length,
     capturas: system.gallery.length > 0,
@@ -306,6 +309,17 @@ function Detail({ system, reduce, shot, setShot }: { system: SoftwareSystem; red
             ))}
           </div>
         </Section>
+
+        {system.editions && system.editions.length > 0 && (
+          <Section id="formas">
+            <SectionTitle
+              eyebrow="Elige cómo usarlo"
+              title="Escritorio, en línea o en tu propio servidor"
+              description="El mismo sistema, tres formas de tenerlo. Abre «Detalles y más información» en cada una para comparar."
+            />
+            <EditionsSection system={system} />
+          </Section>
+        )}
 
         {system.demo && (
           <Section id="demostracion">

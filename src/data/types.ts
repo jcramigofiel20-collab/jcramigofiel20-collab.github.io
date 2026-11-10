@@ -77,6 +77,34 @@ export interface Plan {
   features: string[]
 }
 
+/** Botón de una forma de uso: enlace, WhatsApp con mensaje listo o el instalador de la última versión. */
+export interface EditionAction {
+  label: string
+  href?: string
+  whatsapp?: string
+  /** true = descarga el instalador principal de la última versión publicada. */
+  download?: boolean
+}
+
+/** Una forma de tener el sistema (escritorio, en línea, servidor propio…), con su panel de detalles. */
+export interface Edition {
+  id: string
+  name: string
+  tagline: string
+  icon: IconKey
+  accent: 'blue' | 'cyan' | 'violet'
+  badge?: string
+  /** Precio en soles; sin precio se muestra «Consúltanos». */
+  price?: number
+  period?: string
+  priceNote?: string
+  points: string[]
+  /** Párrafos del panel «Detalles y más información». */
+  details: string[]
+  primary: EditionAction
+  secondary?: EditionAction
+}
+
 export interface Feature {
   icon: IconKey
   title: string
@@ -141,6 +169,8 @@ export interface SoftwareSystem {
   /** Recorrido interactivo por las pantallas principales. */
   tour?: TourStop[]
   demo?: DemoInfo
+  /** Formas de usarlo: escritorio, en línea, servidor propio. */
+  editions?: Edition[]
   plans?: Plan[]
   /** Aclaraciones bajo los planes (moneda, cómo activar…). */
   plansNotes?: string[]
