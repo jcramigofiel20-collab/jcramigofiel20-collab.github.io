@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, ChevronDown, Download, ExternalLink, MessageCircle } from 'lucide-react'
+import { Check, ChevronDown, Download, ExternalLink, FileText, MessageCircle } from 'lucide-react'
 import type { Edition, EditionAction, SoftwareSystem } from '../data/types'
 import { latestAssetUrl } from '../lib/catalog'
 import { whatsappUrl } from '../lib/format'
@@ -102,6 +102,12 @@ export function EditionsSection({ system }: { system: SoftwareSystem }) {
               {isOpen && (
                 <div className="mt-3 space-y-2 text-sm leading-relaxed text-slate-400">
                   {ed.details.map((d) => <p key={d}>{d}</p>)}
+                  {ed.guide && (
+                    <a href={ed.guide.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-semibold text-cyan-300 hover:text-cyan-200">
+                      <FileText className="size-4" aria-hidden="true" />
+                      {ed.guide.label}
+                    </a>
+                  )}
                 </div>
               )}
             </article>

@@ -103,6 +103,8 @@ export interface Edition {
   details: string[]
   primary: EditionAction
   secondary?: EditionAction
+  /** Guía en PDF que se enlaza dentro de «Detalles y más información». */
+  guide?: { label: string; href: string }
 }
 
 export interface Feature {

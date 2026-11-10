@@ -177,6 +177,7 @@ export const systems: SoftwareSystem[] = [
           'Requiere Windows 10 u 11 de 64 bits. Se actualiza con un clic cuando sale una versión nueva.',
         ],
         primary: { label: 'Descargar instalador', download: true },
+        guide: { label: 'Guía de instalación (PDF)', href: 'https://github.com/jcramigofiel20-collab/farma-pro-descargas/releases/latest/download/Guia_de_instalacion_FARMA_PRO.pdf' },
         secondary: { label: 'Ver planes', href: '#planes' },
       },
       {
@@ -196,6 +197,7 @@ export const systems: SoftwareSystem[] = [
         ],
         primary: { label: 'Pedir acceso por WhatsApp', whatsapp: 'Hola Joab, quiero usar FARMA PRO Web (en línea) en mi farmacia.' },
         secondary: { label: 'Probar la demo', href: 'https://jcramigofiel20-collab.github.io/farma-pro-descargas/demo/' },
+        guide: { label: 'Cómo funciona FARMA PRO Web (PDF)', href: 'https://jcramigofiel20-collab.github.io/farma-pro-descargas/web/Guia_FARMA_PRO_Web.pdf' },
       },
       {
         id: 'servidor',
@@ -213,6 +215,7 @@ export const systems: SoftwareSystem[] = [
         ],
         primary: { label: 'Comprar el paquete', whatsapp: 'Hola Joab, quiero comprar el paquete de FARMA PRO Web para instalarlo en mi propio servidor.' },
         secondary: { label: 'Guía de instalación (PDF)', href: 'https://jcramigofiel20-collab.github.io/farma-pro-descargas/web/Guia_FARMA_PRO_Web_servidor_propio.pdf' },
+        guide: { label: 'Cómo funciona e instalación en su servidor (PDF)', href: 'https://jcramigofiel20-collab.github.io/farma-pro-descargas/web/Guia_FARMA_PRO_Web_servidor_propio.pdf' },
       },
     ],
     plans: [
